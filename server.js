@@ -10,8 +10,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(routes);
 
-// True for development, but turn to false when done
-sequelize.sync({ force: true }).then(
+// { force: true } when changes have been made to tables
+sequelize.sync({ force: false }).then(
   app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}!`);
   })
