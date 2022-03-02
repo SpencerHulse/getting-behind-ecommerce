@@ -34,16 +34,47 @@ router.get("/:id", (req, res) => {
     });
 });
 
+// Create a new category
 router.post("/", (req, res) => {
-  // create a new category
+  Category.create(req.body)
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
 });
 
+// Update a Category
 router.put("/:id", (req, res) => {
-  // update a category by its `id` value
+  Category.update(req.body, { where: { id: req.params.id } })
+    .then((data) => {
+      if (!data[0]) {
+        res.status(404).json({ message: "No category found with this id" });
+        return;
+      }
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 router.delete("/:id", (req, res) => {
-  // delete a category by its `id` value
+  Category.destroy({ where: { id: req.params.id } })
+    .then((data) => {
+      if (!data) {
+        res.status(404).json({ message: "No product found with this id" });
+        return;
+      }
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 module.exports = router;

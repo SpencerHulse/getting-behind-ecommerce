@@ -116,6 +116,7 @@ router.put("/:id", (req, res) => {
     });
 });
 
+// Delete a single Product
 router.delete("/:id", (req, res) => {
   Product.destroy({ where: { id: req.params.id } })
     .then((data) => {
@@ -127,7 +128,7 @@ router.delete("/:id", (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(400).json(err);
+      res.status(500).json(err);
     });
 });
 
