@@ -3,14 +3,31 @@ const { Category, Product } = require("../../models");
 
 // The `/api/categories` endpoint
 
+// All Categories with associated Products
 router.get("/", (req, res) => {
-  // find all categories
-  // be sure to include its associated Products
+  Category.findAll({ include: { model: Product } })
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json(err);
+    });
 });
 
+// Single Category with associated Products
 router.get("/:id", (req, res) => {
-  // find one category by its `id` value
-  // be sure to include its associated Products
+  Category.findOne({
+    where: { id: req.params.id },
+    include: { model: Product },
+  })
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json(err);
+    });
 });
 
 router.post("/", (req, res) => {
