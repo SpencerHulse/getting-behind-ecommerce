@@ -36,6 +36,10 @@ router.get("/:id", (req, res) => {
     ],
   })
     .then((data) => {
+      if (!data) {
+        res.status(404).json({ message: "No tag found with this id" });
+        return;
+      }
       res.status(200).json(data);
     })
     .catch((err) => {
