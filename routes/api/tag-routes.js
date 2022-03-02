@@ -19,7 +19,7 @@ router.get("/", (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.json(err);
+      res.status(500).json(err);
     });
 });
 
@@ -40,7 +40,7 @@ router.get("/:id", (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.json(err);
+      res.status(500).json(err);
     });
 });
 
